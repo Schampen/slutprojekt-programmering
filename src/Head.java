@@ -23,4 +23,11 @@ public class Head {
         this.lastY = this.y;
         this.y += 1;
     }
+
+    public int getX() {
+        return this.x;
+    }
+    public int getY() {
+        return this.y;
+    }
 }
