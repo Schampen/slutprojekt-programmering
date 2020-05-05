@@ -1,8 +1,40 @@
+import java.awt.event.KeyEvent;
+
 public class Head {
-    int x;
-    int y;
-    int lastX;
-    int lastY;
+    private int x = 8;
+    private int y = 8;
+    private int width = 50;
+    private int height = 50;
+    private int lastX;
+    private int lastY;
+    private boolean right = false;
+    private boolean left = true;
+    private boolean up = false;
+    private boolean down = false;
+
+    public void logic() {
+        if (this.right) {
+            this.moveRight();
+        }
+        if (this.left) {
+            this.moveLeft();
+        }
+        if (this.up) {
+            this.moveUp();
+        }
+        if (this.down) {
+            this.moveDown();
+        }
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
 
     public void moveLeft() {
         this.lastX = this.x;
@@ -27,7 +59,36 @@ public class Head {
     public int getX() {
         return this.x;
     }
+
     public int getY() {
         return this.y;
     }
+
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyChar()=='a') {
+            this.left = true;
+            this.right = false;
+            this.up = false;
+            this.down = false;
+        }
+        if (e.getKeyChar()=='d') {
+            this.left = false;
+            this.right = true;
+            this.up = false;
+            this.down = false;
+        }
+        if (e.getKeyChar()=='s') {
+            this.left = false;
+            this.right = false;
+            this.up = true;
+            this.down = false;
+        }
+        if (e.getKeyChar()=='w') {
+            this.left = false;
+            this.right = false;
+            this.up = false;
+            this.down = true;
+        }
+    }
 }
+
