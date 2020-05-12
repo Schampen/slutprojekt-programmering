@@ -6,14 +6,14 @@ public class Food {
     boolean taken;
 
     public Food() {
-        this.x = (int) ((Math.random() * ((16 - 0) + 1)) + 0);
-        this.y = (int) ((Math.random() * ((16 - 0) + 1)) + 0);
+        this.x = (int) ((Math.random() * ((15 - 0) + 1)) + 0);
+        this.y = (int) ((Math.random() * ((15 - 0) + 1)) + 0);
         this.taken = false;
     }
 
     public void newFood() {
-        this.x = (int) ((Math.random() * ((16 - 0) + 1)) + 0);
-        this.y = (int) ((Math.random() * ((16 - 0) + 1)) + 0);
+        this.x = (int) ((Math.random() * ((15 - 0) + 1)) + 0);
+        this.y = (int) ((Math.random() * ((15 - 0) + 1)) + 0);
         this.taken = false;
     }
 

@@ -11,3 +11,6 @@ Jobbat med grafik
 
 ## lektion 4
 Jobbat med att försöka få head movement att fungera med keylisteners, det gick inte så bra
+
+## lektion 5
+KeyListener är inte rolig att få att funka, den lystnar ju inte på mina keys

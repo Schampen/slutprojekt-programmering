@@ -1,5 +1,3 @@
-import java.awt.event.KeyEvent;
-
 public class Head {
     private int x = 8;
     private int y = 8;
@@ -64,31 +62,32 @@ public class Head {
         return this.y;
     }
 
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyChar()=='a') {
-            this.left = true;
-            this.right = false;
-            this.up = false;
-            this.down = false;
-        }
-        if (e.getKeyChar()=='d') {
-            this.left = false;
-            this.right = true;
-            this.up = false;
-            this.down = false;
-        }
-        if (e.getKeyChar()=='s') {
-            this.left = false;
-            this.right = false;
-            this.up = true;
-            this.down = false;
-        }
-        if (e.getKeyChar()=='w') {
-            this.left = false;
-            this.right = false;
-            this.up = false;
-            this.down = true;
-        }
+    public void setRight() {
+        this.left = false;
+        this.right = true;
+        this.up = false;
+        this.down = false;
+    }
+
+    public void setLeft() {
+        this.left = true;
+        this.right = false;
+        this.up = false;
+        this.down = false;
+    }
+
+    public void setUp() {
+        this.left = false;
+        this.right = false;
+        this.up = false;
+        this.down = true;
+    }
+
+    public void setDown() {
+        this.left = false;
+        this.right = false;
+        this.up = true;
+        this.down = false;
     }
 }
 

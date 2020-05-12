@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 
 /**
@@ -10,7 +11,6 @@ import java.awt.image.BufferStrategy;
  * @author Magnus Silverdal
  */
 public class SnakeGame extends Canvas implements Runnable{
-    private String title = "Snake";
     private JFrame frame;
     private int fps = 1;
     private int ups = 1;
@@ -23,7 +23,7 @@ public class SnakeGame extends Canvas implements Runnable{
         Dimension size = new Dimension(w * 50, h * 50);
         setPreferredSize(size);
         frame = new JFrame();
-        frame.setTitle(title);
+        frame.setTitle("Snake");
     }
 
     private synchronized void start() {
@@ -77,6 +77,10 @@ public class SnakeGame extends Canvas implements Runnable{
 
         Graphics g = bs.getDrawGraphics();
 
+        g.setColor(Color.WHITE);
+        g.fillRect(0,0,16*50,16*50);
+
+        g.setColor(Color.black);
         for (int i = 0; i < 16; i++) {
             for (int w = 0; w < 16 ; w++) {
                 g.drawRect(w * 50,i * 50, 50, 50);
@@ -95,13 +99,50 @@ public class SnakeGame extends Canvas implements Runnable{
         head.logic();
     }
 
-    public static void main(String[] args) {
+    SnakeGame() {
         SnakeGame game = new SnakeGame(16,16);
         game.frame.add(game);
+        game.addKeyListener(new KL());
         game.frame.pack();
         game.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         game.frame.setLocationRelativeTo(null);
         game.frame.setVisible(true);
         game.start();
+    }
+
+    public static void main(String[] args) {
+        SnakeGame game = new SnakeGame();
+    }
+
+    private class KL implements KeyListener {
+        @Override
+        public void keyTyped(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyChar()=='a') {
+                head.setLeft();
+                System.out.println("a");
+            }
+            if (e.getKeyChar()=='d') {
+                head.setRight();
+                System.out.println("d");
+            }
+            if (e.getKeyChar()=='s') {
+                head.setDown();
+                System.out.println("s");
+            }
+            if (e.getKeyChar()=='w') {
+                head.setUp();
+                System.out.println("w");
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+
+        }
     }
 }
