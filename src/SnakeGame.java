@@ -102,47 +102,44 @@ public class SnakeGame extends Canvas implements Runnable{
     SnakeGame() {
         SnakeGame game = new SnakeGame(16,16);
         game.frame.add(game);
-        game.addKeyListener(new KL());
+        game.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyChar()=='a') {
+                    head.setLeft();
+                }
+                if (e.getKeyChar()=='d') {
+                    head.setRight();
+                }
+                if (e.getKeyChar()=='s') {
+                    head.setDown();
+                }
+                if (e.getKeyChar()=='w') {
+                    head.setUp();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
         game.frame.pack();
         game.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         game.frame.setLocationRelativeTo(null);
+        game.frame.setFocusable(true);
+        game.frame.requestFocusInWindow();
         game.frame.setVisible(true);
+        game.head.setRight();
         game.start();
     }
 
     public static void main(String[] args) {
         SnakeGame game = new SnakeGame();
-    }
-
-    private class KL implements KeyListener {
-        @Override
-        public void keyTyped(KeyEvent e) {
-
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-            if (e.getKeyChar()=='a') {
-                head.setLeft();
-                System.out.println("a");
-            }
-            if (e.getKeyChar()=='d') {
-                head.setRight();
-                System.out.println("d");
-            }
-            if (e.getKeyChar()=='s') {
-                head.setDown();
-                System.out.println("s");
-            }
-            if (e.getKeyChar()=='w') {
-                head.setUp();
-                System.out.println("w");
-            }
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-
-        }
     }
 }

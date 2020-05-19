@@ -5,23 +5,28 @@ public class Head {
     private int height = 50;
     private int lastX;
     private int lastY;
-    private boolean right = false;
-    private boolean left = true;
-    private boolean up = false;
-    private boolean down = false;
+    private String direction;
 
     public void logic() {
-        if (this.right) {
+        System.out.println(direction);
+        if (this.direction.equals("right")) {
             this.moveRight();
+            System.out.println("right");
         }
-        if (this.left) {
+        if (this.direction.equals("left")) {
             this.moveLeft();
+            System.out.println("left");
         }
-        if (this.up) {
+        if (this.direction.equals("up")) {
             this.moveUp();
+            System.out.println("up");
         }
-        if (this.down) {
+        if (this.direction.equals("down")) {
             this.moveDown();
+            System.out.println("down");
+        }
+        if (this.direction.equals(null)){
+            System.out.println("no direction");
         }
     }
 
@@ -63,31 +68,21 @@ public class Head {
     }
 
     public void setRight() {
-        this.left = false;
-        this.right = true;
-        this.up = false;
-        this.down = false;
+        this.direction = "right";
+        System.out.println("setRight");
+        System.out.println(direction);
     }
 
     public void setLeft() {
-        this.left = true;
-        this.right = false;
-        this.up = false;
-        this.down = false;
+        this.direction = "left";
     }
 
     public void setUp() {
-        this.left = false;
-        this.right = false;
-        this.up = false;
-        this.down = true;
+        this.direction = "up";
     }
 
     public void setDown() {
-        this.left = false;
-        this.right = false;
-        this.up = true;
-        this.down = false;
+        this.direction = "down";
     }
 }
 
