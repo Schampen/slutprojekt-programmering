@@ -33,8 +33,8 @@ public class Food {
         return this.y;
     }
 
-    public void setTaken(boolean taken) {
-        this.taken = taken;
+    public void setTaken() {
+        this.taken = true;
     }
 
     public void update() {
