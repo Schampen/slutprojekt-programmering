@@ -12,12 +12,15 @@ import java.awt.image.BufferStrategy;
  */
 public class SnakeGame extends Canvas implements Runnable{
     private JFrame frame;
-    private int fps = 1;
-    private int ups = 1;
+    private int fps = 60;
+    private int ups = 2;
     private boolean running = false;
     private Thread thread;
-    Food food = new Food();
-    Head head = new Head();
+    private static Food food = new Food();
+    private static Head head = new Head();
+    private boolean titleScreen;
+    private boolean gameScreen;
+    private boolean gameOverScreen;
 
     public SnakeGame(int w, int h) {
         Dimension size = new Dimension(w * 50, h * 50);
@@ -80,26 +83,31 @@ public class SnakeGame extends Canvas implements Runnable{
         g.setColor(Color.WHITE);
         g.fillRect(0,0,16*50,16*50);
 
-        g.setColor(Color.black);
-        for (int i = 0; i < 16; i++) {
-            for (int w = 0; w < 16 ; w++) {
-                g.drawRect(w * 50,i * 50, 50, 50);
+        if (this.gameScreen) {
+            g.setColor(Color.black);
+            for (int i = 0; i < 16; i++) {
+                for (int w = 0; w < 16 ; w++) {
+                    g.drawRect(w * 50,i * 50, 50, 50);
+                }
             }
+            g.setColor(Color.RED);
+            g.fillRect(food.getX()*50,food.getY()*50,food.getWidth(),food.getHeight());
+            g.setColor(Color.BLACK);
+            g.fillRect(head.getX()*50, head.getY()*50, head.getWidth(), head.getHeight());
         }
-        g.setColor(Color.RED);
-        g.fillRect(food.getX()*50,food.getY()*50,food.getWidth(),food.getHeight());
-        g.setColor(Color.BLACK);
-        g.fillRect(head.getX()*50, head.getY()*50, head.getWidth(), head.getHeight());
         g.dispose();
         bs.show();
     }
 
     private void update() {
-        food.update();
-        head.logic();
+        if (this.gameScreen) {
+            food.update();
+            head.logic();
+        }
     }
 
-    SnakeGame() {
+
+    public static void main(String[] args) {
         SnakeGame game = new SnakeGame(16,16);
         game.frame.add(game);
         game.addKeyListener(new KeyListener() {
@@ -137,9 +145,5 @@ public class SnakeGame extends Canvas implements Runnable{
         game.frame.setVisible(true);
         game.head.setRight();
         game.start();
-    }
-
-    public static void main(String[] args) {
-        SnakeGame game = new SnakeGame();
     }
 }
