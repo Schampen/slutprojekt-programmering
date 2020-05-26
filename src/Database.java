@@ -14,11 +14,11 @@ public class Database {
         this.port = 3306;
         this.DBname = "snakepoints";
     }
-    public void insert(int score,String user) {
+    public void insert(int score,String name) {
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql//"+DBURL+":"+port+"/"+DBname+"? allowPublicKeyRerieval=true&useSSL=false&serverTimezone=UTC", user,password);
+            Connection conn = DriverManager.getConnection("jdbc:mysql://"+DBURL+":"+port+"/"+DBname+"? allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC", user,password);
             Statement stmt = conn.createStatement();
-            String insert = "INSERT INTO highscore (usrname, score) VALUES ("+ user +"," + score + ")";
+            String insert = "INSERT INTO highscore (usrname, score) VALUES (\""+ name +"\"," + score + ")";
             stmt.executeUpdate(insert);
             conn.close();
             stmt.close();
@@ -28,7 +28,7 @@ public class Database {
     }
     public void get() {
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql//"+DBURL+":"+port+"/"+DBname+"? allowPublicKeyRerieval=true&useSSL=false&serverTimezone=UTC", user,password);
+            Connection conn = DriverManager.getConnection("jdbc:mysql://"+DBURL+":"+port+"/"+DBname+"? allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC", user,password);
             Statement stmt = conn.createStatement();
             String get = "SELECT * FROM highscore ORDER BY score DESC";
             ResultSet rset = stmt.executeQuery(get);
