@@ -25,9 +25,6 @@ public class Head {
             this.moveDown();
             System.out.println("down");
         }
-        if (this.direction.equals(null)){
-            System.out.println("no direction");
-        }
     }
 
     public int getWidth() {
@@ -83,6 +80,10 @@ public class Head {
 
     public void setDown() {
         this.direction = "down";
+    }
+
+    public void setNone() {
+        this.direction = "none";
     }
 }
 

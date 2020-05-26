@@ -23,6 +23,9 @@ public class SnakeGame extends Canvas implements Runnable{
     private static boolean titleScreen = false;
     private static boolean gameScreen = false;
     private static boolean gameOverScreen = false;
+    private static int score;
+    private static Database database = new Database();
+    private static int gameover = 0;
 
     public SnakeGame(int w, int h) {
         Dimension size = new Dimension(w * 50, h * 50);
@@ -96,6 +99,19 @@ public class SnakeGame extends Canvas implements Runnable{
             }
         }
 
+        if (gameOverScreen) {
+            char[] data = {'G','A','M','E','O','V','E','R'};
+            g.setColor(Color.red);
+            g.fillRect(3*50,6*50,450,100);
+            g.setColor(Color.BLACK);
+            for (int i = 0; i < data.length; i++) {
+                int x = 4 + i;
+                g.drawChars(data, i,1,x*50,7*50);
+            }
+            gameover++;
+            System.out.println(gameover);
+        }
+
         if (this.gameScreen) {
             g.setColor(Color.BLACK);
             for (int i = 0; i < 16; i++) {
@@ -113,22 +129,35 @@ public class SnakeGame extends Canvas implements Runnable{
     }
 
     private void update() {
-        if (this.gameScreen) {
+        if (gameScreen) {
             food.update();
             head.logic();
             collision();
+        }
+        if (gameOverScreen && gameover > 20) {
+            String user = JOptionPane.showInputDialog(null, "What's your name?");
+            database.insert(score,user);
+            database.get();
+            stop();
         }
     }
 
     private void collision() {
         if (head.getX() == food.getX() && head.getY() == food.getY()) {
             food.setTaken();
+            score++;
+        }
+        if (head.getX() < 0 || head.getX() > 16 || head.getY() < 0 || head.getY() > 16) {
+            head.setNone();
+            gameScreen = false;
+            gameOverScreen = true;
         }
     }
 
 
     public static void main(String[] args) {
         titleScreen = true;
+        score = 0;
         SnakeGame game = new SnakeGame(16,16);
         game.frame.add(game);
         game.addKeyListener(new KeyListener() {
@@ -171,10 +200,12 @@ public class SnakeGame extends Canvas implements Runnable{
                 double pointX = e.getPoint().getX();
                 double pointY = e.getPoint().getY();
 
-                if (pointX >= 6*50 && pointX <= 11*50 && pointY >= 7*50 && pointY <= 8*50) {
-                    titleScreen = false;
-                    gameScreen = true;
-                    System.out.println("hello");
+                if (titleScreen) {
+                    if (pointX >= 6*50 && pointX <= 11*50 && pointY >= 7*50 && pointY <= 8*50) {
+                        titleScreen = false;
+                        gameScreen = true;
+                        System.out.println("hello");
+                    }
                 }
             }
             @Override
